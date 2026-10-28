@@ -348,6 +348,17 @@
       {"title":"Status","type":"single","year":2015,"apple":"https://music.apple.com/us/album/status-single/1042609265","spotify":"https://open.spotify.com/album/1yfdHe4o9x7SIjXOMKq4iw","youtube":"https://www.youtube.com/watch?v=457YsGPoPlY","smart":null}
     ];
 
+    // Music videos (YouTube). 2022 list is curated; 2019+ starts at Judgement.
+    const VIDEOS = [
+      {"title":"Friendly Reminder","year":2022,"youtube":"https://www.youtube.com/watch?v=UNPmsynucZs"},
+      {"title":"Friendly Reminder BTS","year":2022,"youtube":"https://www.youtube.com/watch?v=N_D4dw8MLkg"},
+      {"title":"Dirty Sprite Toast Freestyle","year":2022,"youtube":"https://www.youtube.com/watch?v=4JPH2wt_vq8"},
+      {"title":"All I Know","year":2022,"youtube":"https://www.youtube.com/watch?v=tXRVUbL9D5A"},
+      {"title":"Acquainted","year":2019,"youtube":"https://www.youtube.com/watch?v=wFirxUBrf78"},
+      {"title":"Try Me","year":2019,"youtube":"https://www.youtube.com/watch?v=SysePnxa-4Y"},
+      {"title":"Judgement","year":2019,"youtube":"https://www.youtube.com/watch?v=IcFUkPyLQvQ"}
+    ];
+
     const SOCIAL_ICONS = [
       {
         label: "X",
@@ -552,10 +563,9 @@
       buildYearFolders(music.ul, groupByYear(RELEASES), (rLi, r) => buildRelease(rLi, r, false));
       cj.ul.appendChild(music.li);
 
-      // VIDEOS — YouTube links starting from Judgement (2019+)
+      // VIDEOS — curated YouTube list (2022 MVs + from Judgement)
       const videos = makeFolder("Videos", false);
-      const videoReleases = RELEASES.filter((r) => r.youtube && r.year >= 2019);
-      buildYearFolders(videos.ul, groupByYear(videoReleases), buildVideoItem);
+      buildYearFolders(videos.ul, groupByYear(VIDEOS), buildVideoItem);
       cj.ul.appendChild(videos.li);
 
       // TOUR — TBA
