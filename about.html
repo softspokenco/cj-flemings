@@ -44,9 +44,9 @@
     }
 
     .page {
-      max-width: 720px;
+      max-width: 26rem;
       margin: 0 auto;
-      padding: 1.5rem 1.1rem 2.5rem;
+      padding: 1.75rem 1.35rem 2.75rem;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -92,14 +92,17 @@
     }
 
     .footer-url {
-      text-align: right;
+      text-align: center;
       font-size: 0.78rem;
       color: var(--muted);
     }
 
     @media (max-width: 480px) {
       body { font-size: 14px; }
-      .page { padding: 1.1rem 0.75rem 2rem; }
+      .page {
+        max-width: 100%;
+        padding: 1.35rem 1.4rem 2.25rem;
+      }
     }
   </style>
 </head>
