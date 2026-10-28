@@ -558,15 +558,15 @@
       // CJ Flemings → Music / Videos / Tour
       const cj = makeFolder("CJ Flemings", true);
 
-      // VIDEOS first (latest) — curated YouTube list
-      const videos = makeFolder("Videos", true);
-      buildYearFolders(videos.ul, groupByYear(VIDEOS), buildVideoItem);
-      cj.ul.appendChild(videos.li);
-
-      // MUSIC — all releases by year
-      const music = makeFolder("Music", false);
+      // MUSIC first, open on landing
+      const music = makeFolder("Music", true);
       buildYearFolders(music.ul, groupByYear(RELEASES), (rLi, r) => buildRelease(rLi, r, false));
       cj.ul.appendChild(music.li);
+
+      // VIDEOS closed
+      const videos = makeFolder("Videos", false);
+      buildYearFolders(videos.ul, groupByYear(VIDEOS), buildVideoItem);
+      cj.ul.appendChild(videos.li);
 
       // TOUR — TBA
       const tour = makeFolder("Tour", false);
