@@ -301,7 +301,7 @@
   <div class="page">
     <h1 class="sr-only">CJ Flemings — Discography</h1>
 
-    <nav class="tree" aria-label="Discography folder tree" id="tree"></nav>
+    <nav class="tree" aria-label="CJ Flemings folder tree" id="tree"></nav>
 
 
     <footer>
@@ -503,77 +503,69 @@
         .replace(/"/g, "&quot;");
     }
 
-    function buildTree() {
-      const root = document.getElementById("tree");
-      const years = groupByYear(RELEASES);
+    function makeFolder(label, open) {
+      const id = uid();
+      const panelId = id + "-panel";
+      const li = document.createElement("li");
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "folder-btn";
+      btn.id = id;
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+      btn.setAttribute("aria-controls", panelId);
+      btn.innerHTML = `${folderIcon()}<span class="label folder-label">${escapeHtml(label)}</span>`;
+      const ul = document.createElement("ul");
+      ul.id = panelId;
+      ul.hidden = !open;
+      ul.setAttribute("role", "group");
+      ul.setAttribute("aria-labelledby", id);
+      btn.addEventListener("click", () => toggle(btn, ul));
+      li.appendChild(btn);
+      li.appendChild(ul);
+      return { li, ul, btn };
+    }
 
-      // Soft Spoken Co.
-      const sscId = uid();
-      const sscPanel = uid() + "-panel";
-      const sscLi = document.createElement("li");
-      const sscBtn = document.createElement("button");
-      sscBtn.type = "button";
-      sscBtn.className = "folder-btn";
-      sscBtn.id = sscId;
-      sscBtn.setAttribute("aria-expanded", "true");
-      sscBtn.setAttribute("aria-controls", sscPanel);
-      sscBtn.innerHTML = `${folderIcon()}<span class="label folder-label">Soft Spoken Co.</span>`;
-
-      const sscUl = document.createElement("ul");
-      sscUl.id = sscPanel;
-      sscUl.setAttribute("role", "group");
-      sscUl.setAttribute("aria-labelledby", sscId);
-
-      // CJ Flemings
-      const cjId = uid();
-      const cjPanel = uid() + "-panel";
-      const cjLi = document.createElement("li");
-      const cjBtn = document.createElement("button");
-      cjBtn.type = "button";
-      cjBtn.className = "folder-btn";
-      cjBtn.id = cjId;
-      cjBtn.setAttribute("aria-expanded", "true");
-      cjBtn.setAttribute("aria-controls", cjPanel);
-      cjBtn.innerHTML = `${folderIcon()}<span class="label folder-label">CJ Flemings</span>`;
-
-      const cjUl = document.createElement("ul");
-      cjUl.id = cjPanel;
-      cjUl.setAttribute("role", "group");
-      cjUl.setAttribute("aria-labelledby", cjId);
-
+    function buildYearFolders(parentUl, years, itemBuilder) {
       years.forEach(([year, items]) => {
-        // Default: Soft Spoken Co. + CJ Flemings open; all year folders collapsed; no release open
-        const yearOpen = false;
-        const yId = uid();
-        const yPanel = yId + "-panel";
-        const yLi = document.createElement("li");
-        const yBtn = document.createElement("button");
-        yBtn.type = "button";
-        yBtn.className = "folder-btn";
-        yBtn.id = yId;
-        yBtn.setAttribute("aria-expanded", "false");
-        yBtn.setAttribute("aria-controls", yPanel);
-        yBtn.innerHTML = `${folderIcon()}<span class="label folder-label">${year}</span>`;
-
-        const yUl = document.createElement("ul");
-        yUl.id = yPanel;
-        yUl.hidden = true;
-        yUl.setAttribute("role", "group");
-        yUl.setAttribute("aria-labelledby", yId);
-
+        const y = makeFolder(String(year), false);
         items.forEach((r) => {
           const rLi = document.createElement("li");
-          buildRelease(rLi, r, false);
-          yUl.appendChild(rLi);
+          itemBuilder(rLi, r);
+          y.ul.appendChild(rLi);
         });
-
-        yBtn.addEventListener("click", () => toggle(yBtn, yUl));
-        yLi.appendChild(yBtn);
-        yLi.appendChild(yUl);
-        cjUl.appendChild(yLi);
+        parentUl.appendChild(y.li);
       });
+    }
 
-      // Centered socials under CJ Flemings: About + icons (incl. email)
+    function buildVideoItem(li, r) {
+      li.innerHTML = `<div class="file-line">${docIcon()}<a href="${r.youtube}" target="_blank" rel="noopener noreferrer">${escapeHtml(r.title)}</a></div>`;
+    }
+
+    function buildTree() {
+      const root = document.getElementById("tree");
+
+      // CJ Flemings → Music / Videos / Tour
+      const cj = makeFolder("CJ Flemings", true);
+
+      // MUSIC — all releases by year
+      const music = makeFolder("Music", true);
+      buildYearFolders(music.ul, groupByYear(RELEASES), (rLi, r) => buildRelease(rLi, r, false));
+      cj.ul.appendChild(music.li);
+
+      // VIDEOS — YouTube links starting from Judgement (2019+)
+      const videos = makeFolder("Videos", false);
+      const videoReleases = RELEASES.filter((r) => r.youtube && r.year >= 2019);
+      buildYearFolders(videos.ul, groupByYear(videoReleases), buildVideoItem);
+      cj.ul.appendChild(videos.li);
+
+      // TOUR — TBA
+      const tour = makeFolder("Tour", false);
+      const tbaLi = document.createElement("li");
+      tbaLi.innerHTML = `<div class="file-line">${docIcon()}<span class="meta">Tour dates to be announced</span></div>`;
+      tour.ul.appendChild(tbaLi);
+      cj.ul.appendChild(tour.li);
+
+      // Socials under CJ Flemings
       const socialLi = document.createElement("li");
       const iconLinks = SOCIAL_ICONS.map((s) => {
         const isMail = s.href.startsWith("mailto:");
@@ -584,20 +576,11 @@
         <a class="about-link" href="about.html">About</a>
         ${iconLinks}
       </div>`;
-      cjUl.appendChild(socialLi);
-
-      cjBtn.addEventListener("click", () => toggle(cjBtn, cjUl));
-      cjLi.appendChild(cjBtn);
-      cjLi.appendChild(cjUl);
-      sscUl.appendChild(cjLi);
-
-      sscBtn.addEventListener("click", () => toggle(sscBtn, sscUl));
-      sscLi.appendChild(sscBtn);
-      sscLi.appendChild(sscUl);
+      cj.ul.appendChild(socialLi);
 
       const outer = document.createElement("ul");
       outer.setAttribute("role", "tree");
-      outer.appendChild(sscLi);
+      outer.appendChild(cj.li);
       root.appendChild(outer);
     }
 
