@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="CJ Flemings — Soft Spoken Co. Discography.">
+  <meta name="description" content="CJ Flemings — Montreal artist. Soft Spoken Co. discography, 2015–2022.">
   <meta name="theme-color" content="#ffffff">
   <meta property="og:type" content="website">
   <meta property="og:title" content="CJ Flemings">
-  <meta property="og:description" content="CJ Flemings discography, 2015–2022. Soft Spoken Co.">
+  <meta property="og:description" content="CJ Flemings — Montreal artist. Discography 2015–2022. Soft Spoken Co.">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="CJ Flemings">
-  <meta name="twitter:description" content="CJ Flemings discography, 2015–2022. Soft Spoken Co.">
+  <meta name="twitter:description" content="CJ Flemings — Montreal artist. Discography 2015–2022. Soft Spoken Co.">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23c4a35a' d='M1 3h5l1.5 1.5H15v9H1z'/%3E%3C/svg%3E">
   <title>CJ Flemings</title>
   <style>
@@ -177,19 +177,49 @@
     }
 
     .socials {
-      margin: 0.85rem 0 0 1.35rem;
-      padding: 0.2rem 0.2rem;
+      margin: 0.85rem 0 0;
+      padding: 0.35rem 0.2rem;
       font-size: 0.88em;
       color: var(--muted);
       display: flex;
       flex-wrap: wrap;
-      gap: 0.15rem 0;
+      justify-content: center;
+      align-items: center;
+      gap: 0.85rem 1rem;
+      width: 100%;
     }
 
-    .socials a {
+    .socials a.about-link {
       color: var(--muted);
+      text-decoration: underline;
+      text-underline-offset: 2px;
     }
-    .socials a:hover { color: var(--text); opacity: 1; }
+    .socials a.about-link:hover {
+      color: var(--text);
+      opacity: 1;
+    }
+
+    .social-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.35rem;
+      height: 1.35rem;
+      color: var(--muted);
+      line-height: 0;
+      text-decoration: none;
+    }
+    .social-icon:hover {
+      color: var(--text);
+      opacity: 1;
+    }
+    .social-icon svg {
+      width: 18px;
+      height: 18px;
+      display: block;
+      fill: currentColor;
+      stroke: currentColor;
+    }
 
     /* —— Footer —— */
     footer {
@@ -237,6 +267,12 @@
       .page { padding: 1.1rem 0.75rem 2rem; }
       .tree ul { padding-left: 1.05rem; }
       .listen { padding-left: calc(13px + 0.45rem); }
+      .socials {
+        margin-left: 0;
+        width: 100%;
+        gap: 0.7rem 0.85rem;
+        justify-content: center;
+      }
     }
   </style>
 </head>
@@ -245,6 +281,7 @@
     <h1 class="sr-only">CJ Flemings — Discography</h1>
 
     <nav class="tree" aria-label="Discography folder tree" id="tree"></nav>
+
 
     <footer>
       <hr class="footer-rule">
@@ -290,15 +327,44 @@
       {"title":"Status","type":"single","year":2015,"apple":"https://music.apple.com/us/album/status-single/1042609265","spotify":"https://open.spotify.com/album/1yfdHe4o9x7SIjXOMKq4iw","youtube":"https://www.youtube.com/watch?v=457YsGPoPlY","smart":null}
     ];
 
-    const SOCIALS = [
-      { label: "X", href: "https://x.com/cjflemings" },
-      { label: "Spotify", href: "https://open.spotify.com/artist/49pdZ1HfaL6NJmsD3UJ4QJ" },
-      { label: "Apple Music", href: "https://music.apple.com/us/artist/cj-flemings/1042609266" },
-      { label: "SoundCloud", href: "https://soundcloud.com/cjflemings" },
-      { label: "Instagram", href: "https://instagram.com/cjflemings" }
+    const SOCIAL_ICONS = [
+      {
+        label: "X",
+        href: "https://x.com/cjflemings",
+        svg: `<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" stroke="none" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>`
+      },
+      {
+        label: "Spotify",
+        href: "https://open.spotify.com/artist/49pdZ1HfaL6NJmsD3UJ4QJ",
+        svg: `<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" stroke="none" d="M12 1.5C6.201 1.5 1.5 6.201 1.5 12S6.201 22.5 12 22.5 22.5 17.799 22.5 12 17.799 1.5 12 1.5zm4.606 14.704a.75.75 0 01-1.03.248c-2.82-1.724-6.372-2.114-10.554-1.158a.75.75 0 11-.334-1.463c4.56-1.041 8.5-.59 11.67 1.348a.75.75 0 01.248 1.025zm1.23-2.736a.938.938 0 01-1.288.31c-3.227-1.983-8.146-2.559-11.96-1.4a.938.938 0 11-.544-1.795c4.356-1.32 9.76-.68 13.482 1.61a.938.938 0 01.31 1.275zm.106-2.85c-3.87-2.297-10.26-2.508-13.95-1.387a1.125 1.125 0 11-.652-2.154c4.23-1.28 11.25-1.032 15.68 1.603a1.125 1.125 0 11-1.078 1.938z"/></svg>`
+      },
+      {
+        label: "Apple Music",
+        href: "https://music.apple.com/us/artist/cj-flemings/1042609266",
+        svg: `<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" stroke="none" d="M18.75 3.2v11.05a3.35 3.35 0 11-1.7-2.9V7.12l-8.1 1.62v7.76a3.35 3.35 0 11-1.7-2.9V5.55c0-.74.52-1.38 1.24-1.53l8.55-1.71c.9-.18 1.71.5 1.71 1.39z"/></svg>`
+      },
+      {
+        label: "YouTube",
+        href: "https://www.youtube.com/cjflemings",
+        svg: `<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" stroke="none" d="M23.5 7.6a3.05 3.05 0 00-2.15-2.16C19.5 5 12 5 12 5s-7.5 0-9.35.44A3.05 3.05 0 00.5 7.6 31.9 31.9 0 000 12a31.9 31.9 0 00.5 4.4 3.05 3.05 0 002.15 2.16C4.5 19 12 19 12 19s7.5 0 9.35-.44a3.05 3.05 0 002.15-2.16A31.9 31.9 0 0024 12a31.9 31.9 0 00-.5-4.4zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/></svg>`
+      },
+      {
+        label: "SoundCloud",
+        href: "https://soundcloud.com/cjflemings",
+        svg: `<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" stroke="none" d="M17.2 10.1a3.55 3.55 0 00-3.48 2.9H7.85a.55.55 0 00-.55.55v4.2c0 .3.25.55.55.55h9.7A3.9 3.9 0 0021 14.4a3.9 3.9 0 00-3.8-4.3zm-11.05 3.05h.7v5.1h-.7zm1.55-.85h.7v5.95h-.7zm1.55.4h.7v5.55h-.7zm1.55-.55h.7v6.1h-.7z"/></svg>`
+      },
+      {
+        label: "Instagram",
+        href: "https://instagram.com/cjflemings",
+        svg: `<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="1.6" d="M8 3.8h8A4.2 4.2 0 0120.2 8v8a4.2 4.2 0 01-4.2 4.2H8A4.2 4.2 0 013.8 16V8A4.2 4.2 0 018 3.8z"/><circle fill="none" stroke="currentColor" stroke-width="1.6" cx="12" cy="12" r="3.4"/><circle fill="currentColor" stroke="none" cx="16.7" cy="7.3" r="1.05"/></svg>`
+      },
+      {
+        label: "Email",
+        href: "mailto:shane@cjflemings.com",
+        svg: `<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="1.6" d="M3.5 6.5h17v11h-17z"/><path fill="none" stroke="currentColor" stroke-width="1.6" d="M4 7l8 6 8-6"/></svg>`
+      }
     ];
 
-    const LATEST_YEAR = 2022;
 
     function folderIcon() {
       return `<svg class="icon icon-folder" viewBox="0 0 16 13" aria-hidden="true" focusable="false">
@@ -454,8 +520,9 @@
       cjUl.setAttribute("role", "group");
       cjUl.setAttribute("aria-labelledby", cjId);
 
-      years.forEach(([year, items], yi) => {
-        const yearOpen = year === LATEST_YEAR;
+      years.forEach(([year, items]) => {
+        // Default: Soft Spoken Co. + CJ Flemings open; all year folders collapsed; no release open
+        const yearOpen = false;
         const yId = uid();
         const yPanel = yId + "-panel";
         const yLi = document.createElement("li");
@@ -463,21 +530,19 @@
         yBtn.type = "button";
         yBtn.className = "folder-btn";
         yBtn.id = yId;
-        yBtn.setAttribute("aria-expanded", yearOpen ? "true" : "false");
+        yBtn.setAttribute("aria-expanded", "false");
         yBtn.setAttribute("aria-controls", yPanel);
         yBtn.innerHTML = `${folderIcon()}<span class="label folder-label">${year}</span>`;
 
         const yUl = document.createElement("ul");
         yUl.id = yPanel;
-        yUl.hidden = !yearOpen;
+        yUl.hidden = true;
         yUl.setAttribute("role", "group");
         yUl.setAttribute("aria-labelledby", yId);
 
-        items.forEach((r, ri) => {
-          // Mimic OVO: first release of latest year starts open; siblings closed
-          const releaseOpen = yearOpen && ri === 0;
+        items.forEach((r) => {
           const rLi = document.createElement("li");
-          buildRelease(rLi, r, releaseOpen);
+          buildRelease(rLi, r, false);
           yUl.appendChild(rLi);
         });
 
@@ -487,13 +552,17 @@
         cjUl.appendChild(yLi);
       });
 
-      // Socials as a file-like line under CJ Flemings (after years)
+      // Centered socials under CJ Flemings: About + icons (incl. email)
       const socialLi = document.createElement("li");
-      const socialParts = SOCIALS.map((s, i) => {
-        const link = `<a href="${s.href}" target="_blank" rel="noopener noreferrer">${s.label}</a>`;
-        return i === 0 ? link : `<span class="sep" aria-hidden="true"> · </span>${link}`;
+      const iconLinks = SOCIAL_ICONS.map((s) => {
+        const isMail = s.href.startsWith("mailto:");
+        const extra = isMail ? "" : ` target="_blank" rel="noopener noreferrer"`;
+        return `<a class="social-icon" href="${s.href}"${extra} aria-label="${s.label}">${s.svg}</a>`;
       }).join("");
-      socialLi.innerHTML = `<div class="socials" aria-label="Social links">${socialParts}</div>`;
+      socialLi.innerHTML = `<div class="socials" aria-label="Links">
+        <a class="about-link" href="about.html">About</a>
+        ${iconLinks}
+      </div>`;
       cjUl.appendChild(socialLi);
 
       cjBtn.addEventListener("click", () => toggle(cjBtn, cjUl));
