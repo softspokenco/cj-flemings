@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://cjflemings.com/sitemap.xml
+Sitemap: http://cjflemings.com/sitemap.xml
