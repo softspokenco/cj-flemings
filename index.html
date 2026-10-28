@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="CJ Flemings — Soft Spoken Co. Discography.">
+  <meta name="theme-color" content="#ffffff">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="CJ Flemings">
+  <meta property="og:description" content="CJ Flemings discography, 2015–2022. Soft Spoken Co.">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="CJ Flemings">
+  <meta name="twitter:description" content="CJ Flemings discography, 2015–2022. Soft Spoken Co.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23c4a35a' d='M1 3h5l1.5 1.5H15v9H1z'/%3E%3C/svg%3E">
+  <title>CJ Flemings</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #ffffff;
+      --text: #000000;
+      --muted: #8a8a8a;
+      --rule: #c8c8c8;
+      --folder: #c4a35a;
+      --folder-open: #d4b86a;
+      --folder-flap: #f5f0e6;
+      --focus: #0066cc;
+      --link: #000000;
+      --font: "Courier New", Courier, monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.45;
+      font-size: 15px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: var(--link);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    a:hover { opacity: 0.65; }
+    a:focus-visible,
+    button:focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    .page {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 1.5rem 1.1rem 2.5rem;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* —— Tree —— */
+    .tree {
+      list-style: none;
+      flex: 1;
+    }
+
+    .tree ul {
+      list-style: none;
+      margin: 0;
+      padding: 0 0 0 1.35rem;
+    }
+
+    .row {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.45rem;
+      padding: 0.18rem 0.2rem;
+      min-height: 1.5rem;
+    }
+
+    .folder-btn {
+      appearance: none;
+      border: 0;
+      background: transparent;
+      font-family: inherit;
+      font-size: inherit;
+      color: inherit;
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.45rem;
+      padding: 0.18rem 0.2rem;
+      text-align: left;
+      width: 100%;
+      line-height: 1.45;
+      border-radius: 2px;
+    }
+    .folder-btn:hover { background: rgba(0, 0, 0, 0.03); }
+
+    .folder-btn[aria-expanded="true"] .icon-folder .flap {
+      fill: var(--folder-flap);
+    }
+    .folder-btn[aria-expanded="true"] .icon-folder path.flap-body {
+      fill: #e8d9a8;
+    }
+
+    .label {
+      word-break: break-word;
+    }
+
+    .folder-label::after {
+      content: " /";
+      color: var(--text);
+    }
+
+    /* Icons — lo-fi system look */
+    .icon {
+      flex-shrink: 0;
+      width: 16px;
+      height: 14px;
+      margin-top: 0.2rem;
+      display: block;
+    }
+
+    .icon-folder {
+      width: 16px;
+      height: 13px;
+    }
+
+    .icon-doc {
+      width: 13px;
+      height: 15px;
+    }
+
+    .file-block {
+      padding: 0.1rem 0 0.35rem;
+    }
+
+    .file-line {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.45rem;
+      padding: 0.12rem 0.2rem;
+      color: var(--text);
+    }
+
+    .file-line .meta {
+      display: block;
+    }
+
+    .listen {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.15rem 0;
+      padding: 0.12rem 0.2rem 0.12rem calc(13px + 0.45rem + 0.2rem);
+      font-size: 0.92em;
+    }
+
+    .listen-label {
+      margin-right: 0.35rem;
+      color: var(--text);
+    }
+
+    .listen a {
+      white-space: nowrap;
+    }
+
+    .sep {
+      color: var(--muted);
+      margin: 0 0.35rem;
+      user-select: none;
+    }
+
+    .socials {
+      margin: 0.85rem 0 0 1.35rem;
+      padding: 0.2rem 0.2rem;
+      font-size: 0.88em;
+      color: var(--muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.15rem 0;
+    }
+
+    .socials a {
+      color: var(--muted);
+    }
+    .socials a:hover { color: var(--text); opacity: 1; }
+
+    /* —— Footer —— */
+    footer {
+      margin-top: 2.5rem;
+      padding-top: 0;
+    }
+
+    .footer-rule {
+      border: 0;
+      border-top: 1px solid var(--rule);
+      margin: 0 0 0.55rem;
+    }
+
+    .footer-url {
+      text-align: right;
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-family: var(--font);
+    }
+
+    .footer-url a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+    .footer-url a:hover {
+      color: var(--text);
+      text-decoration: underline;
+      opacity: 1;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (max-width: 480px) {
+      body { font-size: 14px; }
+      .page { padding: 1.1rem 0.75rem 2rem; }
+      .tree ul { padding-left: 1.05rem; }
+      .listen { padding-left: calc(13px + 0.45rem); }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <h1 class="sr-only">CJ Flemings — Discography</h1>
+
+    <nav class="tree" aria-label="Discography folder tree" id="tree"></nav>
+
+    <footer>
+      <hr class="footer-rule">
+      <p class="footer-url">cjflemings.com</p>
+    </footer>
+  </div>
+
+  <!-- Inline SVG icon templates -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+    <symbol id="ico-folder" viewBox="0 0 16 13">
+      <!-- tab -->
+      <path fill="#c4a35a" d="M0 2h5l1.5 1.5H16V12.5H0V2z"/>
+      <path class="flap" fill="#c4a35a" d="M0 4h16v8.5H0z"/>
+      <path fill="#b08f4a" d="M0 2h5l1.2 1.2H0V2z"/>
+    </symbol>
+    <symbol id="ico-doc" viewBox="0 0 13 15">
+      <path fill="none" stroke="#000" stroke-width="1" d="M1.5 0.5h7l3 3v11H1.5z"/>
+      <path fill="none" stroke="#000" stroke-width="1" d="M8.5 0.5v3h3"/>
+    </symbol>
+  </svg>
+
+  <script>
+    const RELEASES = [
+      {"title":"Feelings In a Tuck","type":"single","year":2022,"apple":"https://music.apple.com/us/album/feelings-in-a-tuck-single/1649803315","spotify":"https://open.spotify.com/album/34plBdui4iMrCgZU3mS4NC","youtube":"https://www.youtube.com/watch?v=AP-Do1s7HQs","smart":"https://cjflemings.lnk.to/feelings"},
+      {"title":"All I Know (Rassix Remix)","type":"single","year":2022,"apple":"https://music.apple.com/us/album/all-i-know-rassix-remix-single/1650253405","spotify":"https://open.spotify.com/album/0hzFhKMCz9isbkC1hoCiT0","youtube":"https://www.youtube.com/watch?v=A9lPGkRYTH4","smart":"https://cjflemings.lnk.to/AllIKnowRemix"},
+      {"title":"All I Know","type":"single","year":2022,"apple":"https://music.apple.com/us/album/all-i-know-single/1637722918","spotify":"https://open.spotify.com/album/1hRXyU2InE1dNgjXCVrKaA","youtube":"https://www.youtube.com/watch?v=tXRVUbL9D5A","smart":"https://cjflemings.lnk.to/All-I-Know"},
+      {"title":"Dirty Sprite Toast Freestyle","type":"single","year":2022,"apple":"https://music.apple.com/us/album/dirty-sprite-toast-freestyle-single/1637107146","spotify":"https://open.spotify.com/album/7FhobF2Kc1WnAPqd6NWQgV","youtube":"https://www.youtube.com/watch?v=4JPH2wt_vq8","smart":"https://cjflemings.lnk.to/DSTF"},
+      {"title":"Friendly Reminder","type":"single","year":2022,"apple":"https://music.apple.com/us/album/friendly-reminder-single/1626567243","spotify":"https://open.spotify.com/album/72bkpH6ZiG6Aj60WwNFtMH","youtube":"https://www.youtube.com/watch?v=UNPmsynucZs","smart":"https://cjflemings.lnk.to/FriendlyReminder"},
+      {"title":"Mascara Tears","type":"album","year":2019,"apple":"https://music.apple.com/us/album/mascara-tears/1487208256","spotify":"https://open.spotify.com/album/2PFDAdoAl0mXuUizUesVnO","youtube":null,"smart":"https://cjflemings.lnk.to/MascaraTears"},
+      {"title":"Acquainted","type":"single","year":2019,"apple":"https://music.apple.com/us/album/acquainted-single/1468011560","spotify":"https://open.spotify.com/album/7rlJgPdC5v1qe2eNtjBfim","youtube":"https://www.youtube.com/watch?v=wFirxUBrf78","smart":"https://cjflemings.lnk.to/Acquainted"},
+      {"title":"Try Me","type":"single","year":2019,"apple":"https://music.apple.com/us/album/try-me-single/1465712373","spotify":"https://open.spotify.com/album/5WQ46WaaUH94IzUOfuIGik","youtube":"https://www.youtube.com/watch?v=SysePnxa-4Y","smart":null},
+      {"title":"Judgement","type":"single","year":2019,"apple":"https://music.apple.com/us/album/judgement-single/1450643966","spotify":"https://open.spotify.com/album/7xGIR8CNtB8ELEaSaNsuF1","youtube":"https://www.youtube.com/watch?v=IcFUkPyLQvQ","smart":"https://cjflemings.lnk.to/JUDGEMENT"},
+      {"title":"Forever Wanted More","type":"album","year":2017,"apple":"https://music.apple.com/us/album/forever-wanted-more/1319902510","spotify":"https://open.spotify.com/album/15P63qZRwIZTaKjqQMiPdL","youtube":null,"smart":null},
+      {"title":"Bubbly","type":"single","year":2017,"apple":"https://music.apple.com/us/album/bubbly-single/1292958440","spotify":"https://open.spotify.com/search/CJ%20Flemings%20Bubbly","youtube":null,"smart":null},
+      {"title":"Shine","type":"single","year":2017,"apple":"https://music.apple.com/us/album/shine-single/1228967946","spotify":"https://open.spotify.com/search/CJ%20Flemings%20Shine","youtube":null,"smart":null},
+      {"title":"All Around You","type":"single","year":2017,"apple":"https://music.apple.com/us/album/all-around-you-single/1226584238","spotify":"https://open.spotify.com/search/CJ%20Flemings%20All%20Around%20You","youtube":null,"smart":null},
+      {"title":"Highlight","type":"single","year":2016,"apple":"https://music.apple.com/us/album/highlight-single/1183788304","spotify":"https://open.spotify.com/search/CJ%20Flemings%20Highlight","youtube":null,"smart":null},
+      {"title":"Re-Up","type":"single","year":2016,"apple":"https://music.apple.com/us/album/re-up-single/1185138859","spotify":"https://open.spotify.com/search/CJ%20Flemings%20Re%20Up","youtube":null,"smart":null},
+      {"title":"Blowin'","type":"single","year":2016,"apple":"https://music.apple.com/us/album/blowin-single/1157565098","spotify":"https://open.spotify.com/album/5ZKz0qsBMANaaP0YeAe6Rq","youtube":"https://www.youtube.com/watch?v=3zV_TYjF1Ss","smart":null},
+      {"title":"Connections","type":"single","year":2016,"apple":"https://music.apple.com/us/album/connections-single/1130490518","spotify":"https://open.spotify.com/album/26NplBHaVIfV9tQgyOAyFl","youtube":"https://www.youtube.com/watch?v=p5JudonjYLs","smart":null},
+      {"title":"Pleasure","type":"single","year":2016,"apple":"https://music.apple.com/us/album/pleasure-single/1086176016","spotify":"https://open.spotify.com/album/4JABuYqBYwsdp7bhVNgX2J","youtube":null,"smart":null},
+      {"title":"That Girl","type":"single","year":2015,"apple":"https://music.apple.com/us/album/that-girl-single/1076073192","spotify":"https://open.spotify.com/search/CJ%20Flemings%20That%20Girl","youtube":"https://www.youtube.com/watch?v=jHOyICMLCo8","smart":null},
+      {"title":"Status","type":"single","year":2015,"apple":"https://music.apple.com/us/album/status-single/1042609265","spotify":"https://open.spotify.com/album/1yfdHe4o9x7SIjXOMKq4iw","youtube":"https://www.youtube.com/watch?v=457YsGPoPlY","smart":null}
+    ];
+
+    const SOCIALS = [
+      { label: "X", href: "https://x.com/cjflemings" },
+      { label: "Spotify", href: "https://open.spotify.com/artist/49pdZ1HfaL6NJmsD3UJ4QJ" },
+      { label: "Apple Music", href: "https://music.apple.com/us/artist/cj-flemings/1042609266" },
+      { label: "SoundCloud", href: "https://soundcloud.com/cjflemings" },
+      { label: "Instagram", href: "https://instagram.com/cjflemings" }
+    ];
+
+    const LATEST_YEAR = 2022;
+
+    function folderIcon() {
+      return `<svg class="icon icon-folder" viewBox="0 0 16 13" aria-hidden="true" focusable="false">
+        <path fill="#c4a35a" d="M1 3.2h4.2l1.1 1.3H15v7.2H1z"/>
+        <path class="flap flap-body" fill="#c4a35a" d="M1 4.8h14v6.9H1z"/>
+        <path fill="#a88840" d="M1 3.2h4.2l0.9 1.1H1z"/>
+        <rect x="1" y="4.8" width="14" height="1" fill="#d4b86a" opacity="0.5"/>
+      </svg>`;
+    }
+
+    function docIcon() {
+      return `<svg class="icon icon-doc" viewBox="0 0 13 15" aria-hidden="true" focusable="false">
+        <path fill="#fff" stroke="#111" stroke-width="1" d="M1.5 0.5h7l3 3v11H1.5z"/>
+        <path fill="none" stroke="#111" stroke-width="1" d="M8.5 0.5v3h3"/>
+      </svg>`;
+    }
+
+    function typeLabel(t) {
+      return t === "album" ? "Album" : "Single";
+    }
+
+    function listenLine(r) {
+      const parts = [];
+      if (r.smart) {
+        parts.push(`<a href="${r.smart}" target="_blank" rel="noopener noreferrer">Listen</a>`);
+      }
+      if (r.apple) {
+        parts.push(`<a href="${r.apple}" target="_blank" rel="noopener noreferrer">Apple Music</a>`);
+      }
+      if (r.spotify) {
+        parts.push(`<a href="${r.spotify}" target="_blank" rel="noopener noreferrer">Spotify</a>`);
+      }
+      if (r.youtube) {
+        parts.push(`<a href="${r.youtube}" target="_blank" rel="noopener noreferrer">YouTube</a>`);
+      }
+      if (!parts.length) return "";
+      // Prefer smart as primary "Listen", then platforms joined with middots
+      let html = "";
+      if (r.smart) {
+        const platforms = [];
+        if (r.apple) platforms.push(`<a href="${r.apple}" target="_blank" rel="noopener noreferrer">Apple Music</a>`);
+        if (r.spotify) platforms.push(`<a href="${r.spotify}" target="_blank" rel="noopener noreferrer">Spotify</a>`);
+        if (r.youtube) platforms.push(`<a href="${r.youtube}" target="_blank" rel="noopener noreferrer">YouTube</a>`);
+        html = `<span class="listen-label"><a href="${r.smart}" target="_blank" rel="noopener noreferrer">Listen</a>:</span> `;
+        html += platforms.join(`<span class="sep" aria-hidden="true"> · </span>`);
+      } else {
+        html = `<span class="listen-label">Listen:</span> `;
+        const platforms = [];
+        if (r.apple) platforms.push(`<a href="${r.apple}" target="_blank" rel="noopener noreferrer">Apple Music</a>`);
+        if (r.spotify) platforms.push(`<a href="${r.spotify}" target="_blank" rel="noopener noreferrer">Spotify</a>`);
+        if (r.youtube) platforms.push(`<a href="${r.youtube}" target="_blank" rel="noopener noreferrer">YouTube</a>`);
+        html += platforms.join(`<span class="sep" aria-hidden="true"> · </span>`);
+      }
+      return `<div class="listen">${html}</div>`;
+    }
+
+    function groupByYear(releases) {
+      const map = new Map();
+      for (const r of releases) {
+        if (!map.has(r.year)) map.set(r.year, []);
+        map.get(r.year).push(r);
+      }
+      return [...map.entries()].sort((a, b) => b[0] - a[0]);
+    }
+
+    function uid() {
+      return "f-" + Math.random().toString(36).slice(2, 9);
+    }
+
+    function buildRelease(li, r, open) {
+      const id = uid();
+      const panelId = id + "-panel";
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "folder-btn";
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+      btn.setAttribute("aria-controls", panelId);
+      btn.id = id;
+      btn.innerHTML = `${folderIcon()}<span class="label folder-label">${escapeHtml(r.title)}</span>`;
+
+      const panel = document.createElement("ul");
+      panel.id = panelId;
+      panel.hidden = !open;
+      panel.setAttribute("role", "group");
+      panel.setAttribute("aria-labelledby", id);
+
+      const typeLi = document.createElement("li");
+      typeLi.innerHTML = `<div class="file-line">${docIcon()}<span class="meta">${typeLabel(r.type)}</span></div>`;
+      panel.appendChild(typeLi);
+
+      const listenHtml = listenLine(r);
+      if (listenHtml) {
+        const listenLi = document.createElement("li");
+        listenLi.innerHTML = listenHtml;
+        panel.appendChild(listenLi);
+      }
+
+      btn.addEventListener("click", () => toggle(btn, panel));
+
+      li.appendChild(btn);
+      li.appendChild(panel);
+    }
+
+    function toggle(btn, panel) {
+      const open = btn.getAttribute("aria-expanded") === "true";
+      btn.setAttribute("aria-expanded", open ? "false" : "true");
+      panel.hidden = open;
+    }
+
+    function escapeHtml(s) {
+      return String(s)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    function buildTree() {
+      const root = document.getElementById("tree");
+      const years = groupByYear(RELEASES);
+
+      // Soft Spoken Co.
+      const sscId = uid();
+      const sscPanel = uid() + "-panel";
+      const sscLi = document.createElement("li");
+      const sscBtn = document.createElement("button");
+      sscBtn.type = "button";
+      sscBtn.className = "folder-btn";
+      sscBtn.id = sscId;
+      sscBtn.setAttribute("aria-expanded", "true");
+      sscBtn.setAttribute("aria-controls", sscPanel);
+      sscBtn.innerHTML = `${folderIcon()}<span class="label folder-label">Soft Spoken Co.</span>`;
+
+      const sscUl = document.createElement("ul");
+      sscUl.id = sscPanel;
+      sscUl.setAttribute("role", "group");
+      sscUl.setAttribute("aria-labelledby", sscId);
+
+      // CJ Flemings
+      const cjId = uid();
+      const cjPanel = uid() + "-panel";
+      const cjLi = document.createElement("li");
+      const cjBtn = document.createElement("button");
+      cjBtn.type = "button";
+      cjBtn.className = "folder-btn";
+      cjBtn.id = cjId;
+      cjBtn.setAttribute("aria-expanded", "true");
+      cjBtn.setAttribute("aria-controls", cjPanel);
+      cjBtn.innerHTML = `${folderIcon()}<span class="label folder-label">CJ Flemings</span>`;
+
+      const cjUl = document.createElement("ul");
+      cjUl.id = cjPanel;
+      cjUl.setAttribute("role", "group");
+      cjUl.setAttribute("aria-labelledby", cjId);
+
+      years.forEach(([year, items], yi) => {
+        const yearOpen = year === LATEST_YEAR;
+        const yId = uid();
+        const yPanel = yId + "-panel";
+        const yLi = document.createElement("li");
+        const yBtn = document.createElement("button");
+        yBtn.type = "button";
+        yBtn.className = "folder-btn";
+        yBtn.id = yId;
+        yBtn.setAttribute("aria-expanded", yearOpen ? "true" : "false");
+        yBtn.setAttribute("aria-controls", yPanel);
+        yBtn.innerHTML = `${folderIcon()}<span class="label folder-label">${year}</span>`;
+
+        const yUl = document.createElement("ul");
+        yUl.id = yPanel;
+        yUl.hidden = !yearOpen;
+        yUl.setAttribute("role", "group");
+        yUl.setAttribute("aria-labelledby", yId);
+
+        items.forEach((r, ri) => {
+          // Mimic OVO: first release of latest year starts open; siblings closed
+          const releaseOpen = yearOpen && ri === 0;
+          const rLi = document.createElement("li");
+          buildRelease(rLi, r, releaseOpen);
+          yUl.appendChild(rLi);
+        });
+
+        yBtn.addEventListener("click", () => toggle(yBtn, yUl));
+        yLi.appendChild(yBtn);
+        yLi.appendChild(yUl);
+        cjUl.appendChild(yLi);
+      });
+
+      // Socials as a file-like line under CJ Flemings (after years)
+      const socialLi = document.createElement("li");
+      const socialParts = SOCIALS.map((s, i) => {
+        const link = `<a href="${s.href}" target="_blank" rel="noopener noreferrer">${s.label}</a>`;
+        return i === 0 ? link : `<span class="sep" aria-hidden="true"> · </span>${link}`;
+      }).join("");
+      socialLi.innerHTML = `<div class="socials" aria-label="Social links">${socialParts}</div>`;
+      cjUl.appendChild(socialLi);
+
+      cjBtn.addEventListener("click", () => toggle(cjBtn, cjUl));
+      cjLi.appendChild(cjBtn);
+      cjLi.appendChild(cjUl);
+      sscUl.appendChild(cjLi);
+
+      sscBtn.addEventListener("click", () => toggle(sscBtn, sscUl));
+      sscLi.appendChild(sscBtn);
+      sscLi.appendChild(sscUl);
+
+      const outer = document.createElement("ul");
+      outer.setAttribute("role", "tree");
+      outer.appendChild(sscLi);
+      root.appendChild(outer);
+    }
+
+    buildTree();
+  </script>
+</body>
+</html>
